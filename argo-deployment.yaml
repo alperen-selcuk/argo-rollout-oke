@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  creationTimestamp: null
+  labels:
+    app: argo-deployment
+  name: argo-deployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: argo-deployment
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: argo-deployment
+    spec:
+      containers:
+        - image: iad.ocir.io/natdcshjumpstartprod/argo:v1
+          name: argo
+          env:
+            - name: COLOR
+              value: "RED"
+          ports:
+            - containerPort: 5000
+          resources: {}
+  strategy:
+    canary:
+      steps:
+        - setWeight: 10
+        # Rollouts can be manually resumed by running `kubectl argo rollouts promote ROLLOUT`
+        - pause: {}
+        - setWeight: 50
+        - pause: { duration: 30 } # two minutes
+
