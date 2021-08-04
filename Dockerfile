@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.9.6-slim-buster
 RUN mkdir -p /app
 WORKDIR /app
 
