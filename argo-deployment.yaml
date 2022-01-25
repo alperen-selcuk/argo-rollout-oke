@@ -17,7 +17,7 @@ spec:
         app: argo-deployment
     spec:
       containers:
-        - image: iad.ocir.io/natdcshjumpstartprod/argo:v1
+        - image: test-app:v1
           name: argo
           env:
             - name: COLOR
